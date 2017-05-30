@@ -577,6 +577,104 @@
                 // Value indicator
                 sliderValue.textContent = e.target.value + ' days since competition start';
             });
+
+            map.on('click', 'maptimelayer-low', function (e) {
+                    var scores = [];
+                    var x = e.features[0]["geometry"]["coordinates"][0][0];
+                    var y = e.features[0]["geometry"]["coordinates"][0][2];
+                    var bbox2 = x[0]+','+x[1]+','+y[0]+','+y[1];
+                    var innerurl = 'https://a.mapillary.com/v3/leaderboard/images?&client_id=NzNRM2otQkR2SHJzaXJmNmdQWVQ0dzoxMGNiYjQ1MzFjMWMyYWI3&start_time=2017-05-25&end_time=2017-06-16&bbox=' + bbox2;
+                    $.ajax({
+                      type: "get",
+                      dataType: "json",
+                      url: innerurl,
+                      success: function(data) {
+                        for (i = 0; i < data.length; i++) {
+                          scores.push("{" + data[i]["username"] + ',' + data[i]["image_count"] + '}');
+                        };
+                        new mapboxgl.Popup()
+                            .setLngLat(e.lngLat)
+                            .setHTML("User scores: " + scores)
+                            .addTo(map);
+                      }
+                    });
+
+                });
+
+                map.on('click', 'maptimelayer-med', function (e) {
+                        var scores = [];
+                        var x = e.features[0]["geometry"]["coordinates"][0][0];
+                        var y = e.features[0]["geometry"]["coordinates"][0][2];
+                        var bbox2 = x[0]+','+x[1]+','+y[0]+','+y[1];
+                        var innerurl = 'https://a.mapillary.com/v3/leaderboard/images?&client_id=NzNRM2otQkR2SHJzaXJmNmdQWVQ0dzoxMGNiYjQ1MzFjMWMyYWI3&start_time=2017-05-25&end_time=2017-06-16&bbox=' + bbox2;
+                        $.ajax({
+                          type: "get",
+                          dataType: "json",
+                          url: innerurl,
+                          success: function(data) {
+                            for (i = 0; i < data.length; i++) {
+                              scores.push("{" + data[i]["username"] + ',' + data[i]["image_count"] + '}');
+                            };
+                            new mapboxgl.Popup()
+                                .setLngLat(e.lngLat)
+                                .setHTML("User scores: " + scores)
+                                .addTo(map);
+                          }
+                        });
+
+                    });
+
+                    map.on('click', 'maptimelayer-high', function (e) {
+                            var scores = [];
+                            var x = e.features[0]["geometry"]["coordinates"][0][0];
+                            var y = e.features[0]["geometry"]["coordinates"][0][2];
+                            var bbox2 = x[0]+','+x[1]+','+y[0]+','+y[1];
+                            var innerurl = 'https://a.mapillary.com/v3/leaderboard/images?&client_id=NzNRM2otQkR2SHJzaXJmNmdQWVQ0dzoxMGNiYjQ1MzFjMWMyYWI3&start_time=2017-05-25&end_time=2017-06-16&bbox=' + bbox2;
+                            $.ajax({
+                              type: "get",
+                              dataType: "json",
+                              url: innerurl,
+                              success: function(data) {
+                                for (i = 0; i < data.length; i++) {
+                                  scores.push("{" + data[i]["username"] + ',' + data[i]["image_count"] + '}');
+                                };
+                                new mapboxgl.Popup()
+                                    .setLngLat(e.lngLat)
+                                    .setHTML("User scores: " + scores)
+                                    .addTo(map);
+                              }
+                            });
+
+                        });
+
+                // Change the cursor to a pointer when the mouse is over the places layer.
+                map.on('mouseenter', 'maptimelayer-low', function () {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                // Change it back to a pointer when it leaves.
+                map.on('mouseleave', 'maptimelayer-low', function () {
+                    map.getCanvas().style.cursor = '';
+                });
+
+                map.on('mouseenter', 'maptimelayer-med', function () {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                // Change it back to a pointer when it leaves.
+                map.on('mouseleave', 'maptimelayer-med', function () {
+                    map.getCanvas().style.cursor = '';
+                });
+
+                map.on('mouseenter', 'maptimelayer-high', function () {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                // Change it back to a pointer when it leaves.
+                map.on('mouseleave', 'maptimelayer-high', function () {
+                    map.getCanvas().style.cursor = '';
+                });
+
         });
       </script>
     </div>
